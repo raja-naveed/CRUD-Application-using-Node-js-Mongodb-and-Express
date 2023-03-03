@@ -27,6 +27,14 @@ app.use('/js', express.static(path.resolve(__dirname, "assets/js")));
 app.get('/', (req, res) =>{
     res.render('index'); 
 });
+//  Adding new user data in database 
+app.get('/add-user', (req, res) =>{
+    res.render('add_user'); 
+});
+//  Updating user data in database
+app.get('/update_user', (req, res) =>{
+    res.render('update_user');
+});
 const PORT = process.env.PORT || 8080;
 // listiening port 
 app.listen(PORT, () => {
