@@ -16,11 +16,16 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 // set view engine
 app.set("view engine", "ejs");
-app.set('views' , path.resolve(__dirname, "views/ejs"));
+// app.set('views' , path.resolve(__dirname, "views/ejs"));
+
+// load assets
+app.use('/css', express.static(path.resolve(__dirname, "assets/css")));
+app.use('/img', express.static(path.resolve(__dirname, "assets/img")));
+app.use('/js', express.static(path.resolve(__dirname, "assets/js")));
 
 // getting data from the database
 app.get('/', (req, res) =>{
-    res.send('CRUD Application with Node.js, Express, and MongoDB');
+    res.render('index'); 
 });
 const PORT = process.env.PORT || 8080;
 // listiening port 
