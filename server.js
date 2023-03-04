@@ -23,18 +23,8 @@ app.use('/css', express.static(path.resolve(__dirname, "assets/css")));
 app.use('/img', express.static(path.resolve(__dirname, "assets/img")));
 app.use('/js', express.static(path.resolve(__dirname, "assets/js")));
 
-// getting data from the database
-app.get('/', (req, res) =>{
-    res.render('index'); 
-});
-//  Adding new user data in database 
-app.get('/add-user', (req, res) =>{
-    res.render('add_user'); 
-});
-//  Updating user data in database
-app.get('/update_user', (req, res) =>{
-    res.render('update_user');
-});
+// load router 
+app.use('/', require('./server/routes/router'))
 const PORT = process.env.PORT || 8080;
 // listiening port 
 app.listen(PORT, () => {
