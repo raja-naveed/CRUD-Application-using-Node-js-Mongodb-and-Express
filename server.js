@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const path = require('path');
+const connectDB = require("./server/database/connection")
 
 // load env variables
 dotenv.config({path: './config.env'});
@@ -10,6 +11,9 @@ const app = express();
 
 // log requests
 app.use(morgan('tiny'));
+
+// database loaded
+connectDB();
 
 // parse request to body-parser
 app.use(bodyParser.urlencoded({extended:true}));
@@ -24,7 +28,9 @@ app.use('/img', express.static(path.resolve(__dirname, "assets/img")));
 app.use('/js', express.static(path.resolve(__dirname, "assets/js")));
 
 // load router 
-app.use('/', require('./server/routes/router'))
+app.use('/', require('./server/routes/router'));
+
+//giving port to it
 const PORT = process.env.PORT || 8080;
 // listiening port 
 app.listen(PORT, () => {

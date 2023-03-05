@@ -1,19 +1,13 @@
 const express = require('express')
-
+const services = require('../services/render')
 const route = express.Router()
 
 
 // getting data from the database
-route.get('/', (req, res) =>{
-    res.render('index'); 
-});
+route.get('/', services.homeRoutes);
 //  Adding new user data in database 
-route.get('/add-user', (req, res) =>{
-    res.render('add_user'); 
-});
+route.get('/add-user', services.add_user);
 //  Updating user data in database
-route.get('/update_user', (req, res) =>{
-    res.render('update_user');
-});
+route.get('/update_user', services.update_user);
 
 module.exports = route;
