@@ -9,7 +9,7 @@ const connectDB = require("./server/database/connection")
 dotenv.config({path: './config.env'});
 const app = express();
 
-// log requests
+// log requests  
 app.use(morgan('tiny'));
 
 // database loaded

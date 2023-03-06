@@ -30,17 +30,64 @@ exports.create = (req, res)=>{
 // Retrieve all Users from the database.
 
 exports.find = (req, res)=>{
-    consol.log("find");
+    if(req.query.id){
+        const id = req.query.id;
+
+        Userdb.findById(id)
+        .then(data=>{
+            if(!data){
+                res.status(200).send({message:'There is no data'})
+            }
+            else{
+                res.send(data);
+            }
+        }).catch(err=>{
+            res.send(err).send({message:'There is no data'})
+        })
+    }
+    else{
+        Userdb.find()
+    .then(user=>{
+        res.send(user);
+    }).catch(err=>{
+        res.status(500).send({message: err.message || "Error Occurred while retriving user information"});
+    })
+    }
+    
 }
 
-// Find a single User with an id
-
+// Update User from database
 exports.update = (req, res)=>{
-    consol.log("update");
+    if(!req.body){
+        return res.status(400).send({message: 'Data to update can not be empty'});
+    }
+    const id = req.params.id;
+    Userdb.findByIdAndUpdate(id, req.body, {useFindAndModify: false})
+    .then(data=>{
+        if(!data){
+            res.status(404).send({message: `Cannot update User with ${id}. Maybe User not found!`});
+        }
+        else{
+            res.send(data);
+        }
+    }).catch(err=>{
+        res.status(500).send({message: "Error Update User information"});
+    })
 }
 
 // Update a User by the id in the request
 
 exports.delete = (req, res)=>{
-    consol.log("delete");
-}
+    const id = req.params.id;
+    Userdb.findByIdAndDelete(id)
+        .then(data=>{
+            if(!data){
+                res.status(400).send({message : 'Data is not here '})
+            }
+            else{
+                res.send(data)
+            }
+        }).catch(err=>{
+            res.status(300).send({message:'Error Occured while deleting data'})
+        })
+ }

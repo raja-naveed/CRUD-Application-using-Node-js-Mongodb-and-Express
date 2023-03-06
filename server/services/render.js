@@ -1,7 +1,7 @@
 
 
 exports.homeRoutes =(req, res)=>{
-    res.render('index'); 
+    res.render('index', {user: "New Data"}); 
 
 }
 
